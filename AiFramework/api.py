@@ -13,3 +13,18 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize Flask application
 app = Flask(__name__)
+
+# Initialize Client Object
+client = Swarm()
+
+# Save User History for ML Memory
+user_histories = {}
+
+# Create Main Agent
+main_agent = Agent(
+    name="Main Event",
+    instructions=(
+        "You are a helpful agent, writing in TELEGRAM"  
+    ),
+    functions=[],
+)
