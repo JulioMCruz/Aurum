@@ -47,4 +47,4 @@ To install Swarm:
 pip install git+https://github.com/openai/swarm.git
 ```
 
-Built at ETHGlobal San Francisco 2024 :)
+Built at ETHGlobal San Francisco 2024 by AURUM team :)
