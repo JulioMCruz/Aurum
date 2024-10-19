@@ -74,3 +74,6 @@ def agent():
 
     # Return Answer
     return jsonify({'message': returnedAnswer })
+
+if __name__ == '__main__':
+    app.run(debug=True)
