@@ -41,3 +41,21 @@ multi_language_agent = Agent(
     ),
     functions=[],
 )
+
+# Handle Message
+def handle_message(message : str, user_id : int) -> str:
+    response = None
+    # TODO : Add logic to handle message
+    return response
+
+# Route To Handle Api Call To Main Agent
+@app.route('/api/agent', methods=['POST'])
+def agent():
+    # Get Content From Request
+    content = request.json.get('content')
+    
+    # Get Answer From Main Agent ( P.S , Main agent calls all other agents )
+    returnedAnswer = handle_message(message=content, user_id=1)
+
+    # Return Answer
+    return jsonify({'message': returnedAnswer })
