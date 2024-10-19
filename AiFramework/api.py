@@ -44,9 +44,24 @@ multi_language_agent = Agent(
 
 # Handle Message
 def handle_message(message : str, user_id : int) -> str:
-    response = None
-    # TODO : Add logic to handle message
-    return response
+    # Retrieve or initialize the user's message history
+    history = user_histories.get(user_id, [])
+    history.append({"role": "user", "content": message})
+
+    # Run the agent with the conversation history
+    response = client.run(
+        agent=main_agent,
+        messages=history
+    )
+
+    # Append the agent's response to the history
+    history.append({"role": "assistant", "content": response.messages[-1]["content"]})
+
+    # Update the user's history
+    user_histories[user_id] = history
+
+    # Return the agent's response
+    return response.messages[-1]["content"]
 
 # Route To Handle Api Call To Main Agent
 @app.route('/api/agent', methods=['POST'])
