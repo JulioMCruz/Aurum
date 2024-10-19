@@ -28,3 +28,12 @@ main_agent = Agent(
     ),
     functions=[],
 )
+
+# Crate Multi-Language Agent
+multi_language_agent = Agent(
+    name="Multi-Language",
+    instructions=(
+        "You are a helpful agent, that knows multiple languages"  
+    ),
+    functions=[],
+)
