@@ -3,10 +3,12 @@
 </h1>
 
 <h4 align="center">
-  <a href="">ETHGlobal</a> | <a href="">Website</a>
+  <a href="https://ethglobal.com/">ETHGlobal</a> | <a href="https://ethglobal.com/">Website</a>
   <br><br>
   &nbsp;
   <span style="font-weight: 300; font-style: italic;">note: everything that is blue is a clickable link</span>
+
+  <span style="font-weight: 300; font-style: italic;">note: Use Python Version 3.13.0 :)</span>
 <br><br>
   <img src="assets/logo.jpeg" alt="logo">
 </h4>
