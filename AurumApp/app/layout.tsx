@@ -70,7 +70,7 @@ const evmNetworks = [
       symbol: 'ETH',
     },
     networkId: 2442,
-    rpcUrls: ['https://rpc.cardona.zkevm-rpc.com'],
+    rpcUrls: ['https://polygon-zkevm-cardona.blockpi.network/v1/rpc/public'],
     vanityName: 'Polygon zkEVM Cardona Testnet',
   },
  {
