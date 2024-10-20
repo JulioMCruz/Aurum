@@ -9,7 +9,7 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuL
 import { SVGProps, useEffect, useState } from "react";
 import {
   DynamicWidget,
-  // useTelegramLogin,
+  useTelegramLogin,
   useDynamicContext,
 } from "../lib/dynamic";
 import { useAccount} from 'wagmi'
@@ -20,7 +20,7 @@ import { ArrowLeftRight } from "lucide-react";
 export default function HeaderComponent() {
 
   const { sdkHasLoaded, user } = useDynamicContext();
-  // const { telegramSignIn } = useTelegramLogin();
+  const { telegramSignIn } = useTelegramLogin();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { address } = useAccount()
   // const router= useRouter()
@@ -30,7 +30,7 @@ export default function HeaderComponent() {
 
     const signIn = async () => {
       if (!user) {
-        //await telegramSignIn({ forceCreateUser: true });
+        await telegramSignIn({ forceCreateUser: true });
       }
       setIsLoading(false);
     };
@@ -51,11 +51,11 @@ export default function HeaderComponent() {
             <h1 className="text-white text-2xl font-bold ml-2">AURUM</h1>
             </Link>
           <div className="ml-auto flex items-center gap-4">
-            { address && (
+
               <div className="ml-auto flex items-center gap-4">
-              {isLoading ? <Spinner /> : <DynamicWidget />}
+                {isLoading ? <Spinner /> : <DynamicWidget />}
               </div>
-            )}
+
             </div>
           </>
         ) : (
@@ -172,11 +172,10 @@ export default function HeaderComponent() {
 
             <div className="ml-auto flex items-center gap-4">
 
-              {address && (
-                <div className="ml-auto flex items-center gap-4">
+              <div className="ml-auto flex items-center gap-4">
                 {isLoading ? <Spinner /> : <DynamicWidget />}
-                </div>
-              )}
+              </div>
+
             </div>
           </>
         )}

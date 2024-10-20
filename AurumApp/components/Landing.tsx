@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
+//import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+//import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 export default function Component() {
 
-  const { setShowAuthFlow } = useDynamicContext();
+  //const { setShowAuthFlow } = useDynamicContext();
   
   return (
     <div className="flex flex-col items-center justify-center bg-black text-white p-4 my-16">
@@ -30,9 +30,9 @@ export default function Component() {
             )
         } */}
 
-          <Button className="w-full text-lg py-6" size="lg" onClick={() => setShowAuthFlow(true)}>
+          {/* <Button className="w-full text-lg py-6" size="lg" onClick={() => setShowAuthFlow(true)}>
             SIGN IN
-          </Button>
+          </Button> */}
           
           {/* 
             <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">

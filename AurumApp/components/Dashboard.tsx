@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
+import { useRouter } from 'next/navigation';
 
 export default function Component() {
 
@@ -20,7 +21,7 @@ export default function Component() {
   const [message, setMessage] = useState('')
   const [aiResponse, setAiResponse] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(false)
-
+  const router = useRouter();
   const handleSendVoice = async () => {
     try {
       const response = await fetch('/api/ai', {
@@ -32,7 +33,15 @@ export default function Component() {
       });
       const data = await response.json();
       setAiResponse(data);
-      setDialogOpen(true); // Open the dialog when we receive a response
+
+      // Parse the response and extract amount and symbol
+      const [amountStr, symbolStr] = data.response.split(',');
+      const amount = amountStr.split('=')[1];
+      const symbol = symbolStr.split('=')[1];
+
+      // Navigate to the give-funds page with query parameters
+      router.push(`/give-funds?amount=${amount}&currency=${symbol}`);
+
       console.log(data);
     } catch (error) {
       console.error('Error sending message:', error);
