@@ -21,20 +21,22 @@ contract Aurum {
     /**
     * @notice The Chronicle oracles to read from.
     */
-    uint256 private constant NUM_PRICEFEED = 4;
+    uint256 private constant NUM_PRICEFEED = 5;
     IChronicle public chronicle_USDC_USD = IChronicle(address(0x8b9dbE7098ED98C886a5B34Ca691141d033e8314));
     IChronicle public chronicle_ETH_USD = IChronicle(address(0x5D0474aF2da14B1748730931Af44d9b91473681b));
     IChronicle public chronicle_POL_USD = IChronicle(address(0xE87FAAC65b56fBbA50f5C69Cea4D1E7F5DD47301));
     IChronicle public chronicle_PEPE_USD = IChronicle(address(0xA230C7e2504d7417ac733b1Ac368A5D9b5Cdb066));
+    IChronicle public chronicle_BTC_USD = IChronicle(address(0x75bE335415765aF13dFd8c823E213bdD55D29ceb));
 
 
     constructor() {
         // Note to add address(this) to chronicle oracle's whitelist.
         // This allows the contract to read from the chronicle oracle.
+        selfKisser.selfKiss(address(chronicle_USDC_USD));
         selfKisser.selfKiss(address(chronicle_ETH_USD));
         selfKisser.selfKiss(address(chronicle_POL_USD));
         selfKisser.selfKiss(address(chronicle_PEPE_USD));
-        selfKisser.selfKiss(address(chronicle_USDC_USD));
+        selfKisser.selfKiss(address(chronicle_BTC_USD));
     }
 
     /** 
@@ -47,8 +49,9 @@ contract Aurum {
         (uint256 val2, uint256 age2) = chronicle_ETH_USD.readWithAge();
         (uint256 val3, uint256 age3) = chronicle_POL_USD.readWithAge();
         (uint256 val4, uint256 age4) = chronicle_PEPE_USD.readWithAge();
-        val = [val1, val2, val3, val4];
-        age = [age1, age2, age3, age4];
+        (uint256 val5, uint256 age5) = chronicle_BTC_USD.readWithAge();
+        val = [val1, val2, val3, val4, val5];
+        age = [age1, age2, age3, age4, age5];
 
     }
 
