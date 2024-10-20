@@ -1,6 +1,13 @@
-import { Badge } from "@/components/ui/badge"
+'use client'
 
-export default function Component() {
+import { Badge } from "@/components/ui/badge"
+import { useSearchParams } from 'next/navigation'
+
+export default function GiveFunds() {
+  const searchParams = useSearchParams()
+  const amount = searchParams.get('amount')
+  const currency = searchParams.get('currency')
+
   return (
     <div className="flex items-center justify-center py-16 text-white">
       <div className="w-full max-w-md space-y-6 mx-8">
@@ -8,7 +15,7 @@ export default function Component() {
         <div className="h-24 bg-gradient-to-r from-[#f5a88e] to-[#7accc0] rounded-lg" />
         <div className="px-6 space-y-6">
           <div className="space-y-1">
-            <h1 className="text-4xl font-bold">- 33150.98 THB</h1>
+            <h1 className="text-4xl font-bold">- {amount} {currency?.toUpperCase()}</h1>
             <p className="text-sm text-gray-400 uppercase">Requested</p>
           </div>
           <h2 className="text-xl font-semibold">SELECT PAYMENT OPTION</h2>
