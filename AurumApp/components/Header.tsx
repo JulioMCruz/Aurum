@@ -18,6 +18,7 @@ import { ArrowLeftRight, Key, MessageCircle, User } from "lucide-react";
 // import { useRouter } from "next/navigation";
 
 export default function HeaderComponent() {
+
   const { sdkHasLoaded, user } = useDynamicContext();
   // const { telegramSignIn } = useTelegramLogin();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -44,15 +45,17 @@ export default function HeaderComponent() {
         {/* Show only the logo if the user is not connected */}
         {!address ? (
           <>
-          <Link href="/landingpage" className="mr-6 flex items-center" prefetch={false}>
+          <Link href="/" className="mr-6 flex items-center" prefetch={false}>
             <Image src="/images/Aurum.png" alt={`Aurum logo`} width={60} height={60} className="h-fit" />
             <span className="sr-only text-white">Aurum</span>
             <h1 className="text-white text-2xl font-bold ml-2">AURUM</h1>
             </Link>
           <div className="ml-auto flex items-center gap-4">
+            { address && (
               <div className="ml-auto flex items-center gap-4">
-                {isLoading ? <Spinner /> : <DynamicWidget />}
+              {isLoading ? <Spinner /> : <DynamicWidget />}
               </div>
+            )}
             </div>
           </>
         ) : (
@@ -70,9 +73,9 @@ export default function HeaderComponent() {
                     <SheetTitle>Aurum</SheetTitle>
                   </SheetHeader>
 
-                  <Link key="m-01" href="/page1" prefetch={false}
+                  <Link key="m-01" href="/give-funds" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Page 1
+                    Give Funds
                   </Link>
                   <Link key="m-02" href="/page2" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -94,7 +97,7 @@ export default function HeaderComponent() {
               </Sheet>
             </nav>
 
-            <Link href="/listings" className="mr-6 flex items-center" prefetch={false}>
+            <Link href="/" className="mr-6 flex items-center" prefetch={false}>
               <Image src="/images/Aurum.png" alt={`Aurum logo`} width={60} height={60} className="h-fit" />
               <span className="sr-only">Aurum</span>
               {/* <h1 className="text-white text-md font-bold ml-2 xs:hidden">AURUM</h1> */}
@@ -106,12 +109,12 @@ export default function HeaderComponent() {
                   <NavigationMenuItem key="m-01">
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/page1"
+                        href="/give-funds"
                         className="px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
                         prefetch={false}
                       >
                         <ArrowLeftRight size={20} className="inline-block mr-2" />
-                        Page 1
+                        Give Funds
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -168,9 +171,12 @@ export default function HeaderComponent() {
             </nav>
 
             <div className="ml-auto flex items-center gap-4">
-              <div className="ml-auto flex items-center gap-4">
+
+              {address && (
+                <div className="ml-auto flex items-center gap-4">
                 {isLoading ? <Spinner /> : <DynamicWidget />}
-              </div>
+                </div>
+              )}
             </div>
           </>
         )}
