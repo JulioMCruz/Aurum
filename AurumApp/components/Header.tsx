@@ -14,7 +14,7 @@ import {
 } from "../lib/dynamic";
 import { useAccount} from 'wagmi'
 import Spinner from "@/components/Spinner";
-import { ArrowLeftRight, Key, MessageCircle, User } from "lucide-react";
+import { ArrowLeftRight, Key, MessageCircle } from "lucide-react";
 // import { useRouter } from "next/navigation";
 
 export default function HeaderComponent() {
@@ -77,22 +77,22 @@ export default function HeaderComponent() {
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
                     Give Funds
                   </Link>
-                  <Link key="m-02" href="/page2" prefetch={false}
+                  <Link key="m-02" href="/approve" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Page 2
+                    Approve
                   </Link>
-                  <Link key="m-03" href="/page3" prefetch={false}
+                  <Link key="m-03" href="/summary" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Page 3
+                    Summary
                   </Link>
-                  <Link key="m-04" href="/page4" prefetch={false}
+                  {/* <Link key="m-04" href="/page4" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
                     Page 4
                   </Link>
                   <Link key="m-04" href="/page5" prefetch={false}
                     className="flex w-full items-center gap-2 my-4 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
                     Page 5
-                  </Link>
+                  </Link> */}
                 </SheetContent>
               </Sheet>
             </nav>
@@ -121,28 +121,28 @@ export default function HeaderComponent() {
                   <NavigationMenuItem key="m-02">
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/page2"
+                        href="/approve"
                         className="px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
                         prefetch={false}
                       >
                         <MessageCircle size={20} className="inline-block mr-2" />
-                        Page 2
+                        Approve
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                   <NavigationMenuItem key="m-03">
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/page3"
+                        href="/summary"
                         className="px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
                         prefetch={false}
                       >
                         <Key size={20} className="inline-block mr-2" />
-                        Page 3
+                        Summary
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-                  <NavigationMenuItem key="m-04">
+                  {/* <NavigationMenuItem key="m-04">
                     <NavigationMenuLink asChild>
                       <Link
                         href="/page4"
@@ -165,7 +165,7 @@ export default function HeaderComponent() {
                         Page 5
                       </Link>
                     </NavigationMenuLink>
-                  </NavigationMenuItem>
+                  </NavigationMenuItem> */}
                 </NavigationMenuList>
               </NavigationMenu>
             </nav>
