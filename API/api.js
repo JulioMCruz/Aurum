@@ -127,7 +127,8 @@ app.post('/newDeposit', async (req, res) => {
             toAmount,
             fromCurrency,
             paymentMethodType : "SEPA",
-            toCurrency
+            toCurrency,
+            amount
         },
         {
             headers: {
