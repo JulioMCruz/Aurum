@@ -7,7 +7,7 @@ const crypto = require('crypto');
 dotenv.config();
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
 const baseUrl = 'https://api-sandbox.gatefi.com'
 
@@ -105,6 +105,7 @@ app.post('/newFiatAccount', async (req, res) => {
 // returns [fiatAccountId,createdAt,bankName]
 
 
+// _______________________________________________________  
 
 // POST endpoint to create a new deposit
 // Request body should contain the following parameters:
@@ -118,14 +119,14 @@ app.post('/newDeposit', async (req, res) => {
     let method = '/v1/external/quotes';
 
     const signature1 = generateSignature('POST', method);
-
+    console.log(signature1);
     const response1 = await axios.post(
         `${baseUrl}${method}`,
         {
             chain,
             fromAmount,
             fromCurrency,
-            paymentMethodType : "PIX",
+            paymentMethodType : "SEPA",
             toCurrency
         },
         {
@@ -136,13 +137,14 @@ app.post('/newDeposit', async (req, res) => {
             }
         }
     );
-
     let method2 = '/v1/external/offramp';
 
     const signature2 = generateSignature('POST', method2);
 
+    console.log('quoteId', response1.data.quoteId);
+
     const response2 = await axios.post(
-        `${baseUrl}${method}`,
+        `${baseUrl}${method2}`,
         {
             customerId,
             quoteId : response1.data.quoteId,
@@ -156,17 +158,80 @@ app.post('/newDeposit', async (req, res) => {
         {
             headers: {
                 'Content-Type': 'application/json',
-                'api-key': signature2, 
-                'signature': signature1
+                'api-key': apiKey, 
+                'signature': signature2
             }
         }
     );
 
-    return response2.data;
+    return res.json({response: response2.data});
+
 
 });
+// returns [depositAddress]
 
 
+// _______________________________________________________
+
+
+// POST endpoint to create a KYC Metadata Request
+// Request body should contain the following parameters:
+// - firstName: The first name of the customer
+// - lastName: The last name of the customer
+// - nationality: The nationality of the customer
+// - dateOfBirth: The date of birth of the customer
+// - countryOfResidence: The country where the customer resides
+// POST endpoint to create a KYC Metadata Request
+app.post('/newKYCMetadata', async (req, res) => {
+    const { customerId, firstName, lastName, nationality, dateOfBirth, countryOfResidence } = req.body;
+
+    // Verify that required fields are present
+    if (!customerId || !firstName || !lastName || !nationality || !dateOfBirth || !countryOfResidence) {
+        return res.status(400).json({ error: 'Missing required KYC fields' });
+    }
+
+    let method = `/v1/external/customers/${customerId}/kyc`;
+
+    console.log('method', method);
+
+    try {
+        const signature = generateSignature('POST', method);
+
+        const response = await axios.post(
+            `${baseUrl}${method}`,
+            {
+                kycSubmission: {
+                    firstName,
+                    lastName,
+                    nationality,
+                    dateOfBirth,
+                    countryOfResidence
+                }
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': apiKey,
+                    'signature': signature
+                }
+            }
+        );
+
+        if (response.status === 200) {
+            // Successfully created KYC metadata
+            res.json({ response: response.data });
+        } else {
+            // Handle non-200 responses
+            res.status(response.status).json({ error: response.data });
+        }
+    } catch (error) {
+        // Capture and log the error for debugging
+        console.error('Error creating KYC Metadata:', error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Internal server error, please try again later.' });
+    }
+});
+
+// returns [fiatAccountId,createdAt,bankName]
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
