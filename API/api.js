@@ -114,7 +114,7 @@ app.post('/newFiatAccount', async (req, res) => {
 // - recipientFullAddress: The full address of the recipient
 // - recipientAddressCountry: The country of the recipient's address
 app.post('/newDeposit', async (req, res) => {
-    const { customerId, chain, toAmount, fromCurrency, toCurrency, fiatAccountId, amount } = req.body;
+    const { customerId, chain,fromAmount, fromCurrency, toCurrency, fiatAccountId, amount } = req.body;
 
     let method = '/v1/external/quotes';
 
@@ -124,10 +124,11 @@ app.post('/newDeposit', async (req, res) => {
         `${baseUrl}${method}`,
         {
             chain,
-            toAmount,
+            
             fromCurrency,
             paymentMethodType : "SEPA",
             toCurrency,
+            fromAmount,
             amount
         },
         {
