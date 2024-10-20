@@ -14,7 +14,7 @@ import {
 } from "../lib/dynamic";
 import { useAccount} from 'wagmi'
 import Spinner from "@/components/Spinner";
-import { ArrowLeftRight, Key, MessageCircle } from "lucide-react";
+import { ArrowLeftRight } from "lucide-react";
 // import { useRouter } from "next/navigation";
 
 export default function HeaderComponent() {
@@ -125,7 +125,7 @@ export default function HeaderComponent() {
                         className="px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
                         prefetch={false}
                       >
-                        <MessageCircle size={20} className="inline-block mr-2" />
+                        <ArrowLeftRight size={20} className="inline-block mr-2" />
                         Approve
                       </Link>
                     </NavigationMenuLink>
@@ -137,7 +137,7 @@ export default function HeaderComponent() {
                         className="px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
                         prefetch={false}
                       >
-                        <Key size={20} className="inline-block mr-2" />
+                        <ArrowLeftRight size={20} className="inline-block mr-2" />
                         Summary
                       </Link>
                     </NavigationMenuLink>
