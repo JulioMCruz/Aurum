@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 export default function Component() {
 
+  const { setShowAuthFlow } = useDynamicContext();
+  
   return (
     <div className="flex flex-col items-center justify-center bg-black text-white p-4 my-16">
       <div className="w-full max-w-md space-y-8">

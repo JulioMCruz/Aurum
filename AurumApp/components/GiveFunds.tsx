@@ -4,6 +4,7 @@ export default function Component() {
   return (
     <div className="flex items-center justify-center py-16 text-white">
       <div className="w-full max-w-md space-y-6 mx-8">
+        <h2 className="text-2xl font-bold">Give Funds</h2>
         <div className="h-24 bg-gradient-to-r from-[#f5a88e] to-[#7accc0] rounded-lg" />
         <div className="px-6 space-y-6">
           <div className="space-y-1">
