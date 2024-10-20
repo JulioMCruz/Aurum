@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { useState } from 'react'
@@ -5,16 +6,39 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Mic } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
 
 export default function Component() {
 
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('')
+  const [aiResponse, setAiResponse] = useState(null)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
-  const handleSendVoice = () => {
-    console.log('Sending voice message:', message)
-    setMessage('')
-    setIsOpen(false)
+  const handleSendVoice = async () => {
+    try {
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+      const data = await response.json();
+      setAiResponse(data);
+      setDialogOpen(true); // Open the dialog when we receive a response
+      console.log(data);
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+    setMessage('');
+    setIsOpen(false);
   }
 
   return (
@@ -34,7 +58,7 @@ export default function Component() {
         </div>
         <div className="flex space-x-4">
       
-          <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger asChild>
           <Button className="flex-1 bg-indigo-600 hover:bg-indigo-700">GIVE</Button>
         </DrawerTrigger>
@@ -47,7 +71,7 @@ export default function Component() {
                 placeholder="Type your message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="flex-grow"
+                className="flex-grow text-black"
               />
               <Button onClick={handleSendVoice} className="bg-blue-500 hover:bg-blue-600 text-white">
                 <Mic className="w-4 h-4 mr-2" />
@@ -57,6 +81,17 @@ export default function Component() {
           </div>
         </DrawerContent>
       </Drawer>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>AI Response</DialogTitle>
+            <DialogDescription>
+              {aiResponse ? JSON.stringify(aiResponse, null, 2) : 'No response yet.'}
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>      
 
       <Button className="flex-1 bg-indigo-600 hover:bg-indigo-700">RECEIVE</Button>
       
