@@ -15,7 +15,6 @@ import {
   EthereumWalletConnectors,
   DynamicWagmiConnector
 } from "@/lib/dynamic";
-import { base, sepolia, polygonAmoy } from "viem/chains";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
